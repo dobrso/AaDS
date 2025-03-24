@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from solutionUtils import measureTimeMeanOneArg, generateSizes
+from solutionUtils import measureTimeMean, generateSizes
 
 """
 Удаление всех дубликатов из списка
@@ -29,10 +29,10 @@ timesNaive = []
 for size in sizes:
     arr = list(np.random.randint(0, size, size))
 
-    timeSet = measureTimeMeanOneArg(removeDuplicatesWithSet, arr)
+    timeSet = measureTimeMean(removeDuplicatesWithSet, arr)
     timesSet.append(timeSet)
 
-    timeNaive = measureTimeMeanOneArg(removeDuplicatesWithoutSet, arr)
+    timeNaive = measureTimeMean(removeDuplicatesWithoutSet, arr)
     timesNaive.append(timeNaive)
 
 plt.figure(figsize=(12, 7))

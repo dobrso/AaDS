@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from solutionUtils import measureTimeMeanTwoArgs, generateSizes
+from solutionUtils import measureTimeMean, generateSizes
 
 """
 Нахождение пересечения двух списков
@@ -26,10 +26,10 @@ for size in sizes:
     arrFirst = list(np.random.randint(0, size, size))
     arrSecond = list(np.random.randint(0, size, size))
 
-    timeSet = measureTimeMeanTwoArgs(intersectionWithSets, arrFirst, arrSecond)
+    timeSet = measureTimeMean(intersectionWithSets, arrFirst, arrSecond)
     timesSet.append(timeSet)
 
-    timeNaive = measureTimeMeanTwoArgs(intersectionWithoutSets, arrFirst, arrSecond)
+    timeNaive = measureTimeMean(intersectionWithoutSets, arrFirst, arrSecond)
     timesNaive.append(timeNaive)
 
 plt.figure(figsize=(12, 7))

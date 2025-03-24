@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import random
-from solutionUtils import measureTimeMeanOneArg
+from solutionUtils import measureTimeMean, bubbleSort, primeDivisors
 
 """
 Запустить 100 раз и измерить среднее время работы алгоритма для разных чисел от 10 до 1_000_000.
@@ -26,26 +26,81 @@ from solutionUtils import measureTimeMeanOneArg
 4.	Перемножить выбранные множители.
 """
 
-def fisrtAlg():
-    ...
+def firstAlg(a, b):
+    while b != 0:
+        if a < b:
+            a, b = b, a
+        a -= b
+    return a
 
-def secondAlg():
-    ...
+def secondAlg(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def thirdAlg(a, b):
+    aDivs = primeDivisors(a)
+    bDivs = primeDivisors(b)
+
+    commonDivs = set(aDivs).intersection(set(bDivs))
+
+    gcd = 1
+    for div in commonDivs:
+        aPower = 0
+        while a % div == 0:
+            a = a // div
+            aPower += 1
+        bPower = 0
+        while b % div == 0:
+            b = b // div
+            bPower += 1
+        minPower = min(aPower, bPower)
+        gcd *= div ** minPower
+
+    return gcd
 
 funcRepeatTimes = 100
 
 timesFirstAlg = []
 timesSecondAlg = []
 timesThirdAlg = []
+randomNumbers = []
 
 for i in range(funcRepeatTimes):
-    randomNumber = random.randint(10, 1_000_000)
+    randomNumberFirst = random.randint(10, 1_000_000)
+    randomNumberSecond = random.randint(10, 1_000_000)
 
-    timeFirstAlg = measureTimeMeanOneArg()
-    timesFirstAlg.append(timeFirstAlg)
+    randomNumbers.append(randomNumberFirst)
 
-    timeSecondAlg = measureTimeMeanOneArg()
-    timesSecondAlg.append(timeSecondAlg)
+    timeFirst = measureTimeMean(firstAlg, randomNumberFirst, randomNumberSecond)
+    timesFirstAlg.append(timeFirst)
 
-    timeThirdAlg = measureTimeMeanOneArg()
-    timesThirdAlg.append(timeThirdAlg)
+    timeSecond = measureTimeMean(secondAlg, randomNumberFirst, randomNumberSecond)
+    timesSecondAlg.append(timeSecond)
+
+    timeThird = measureTimeMean(thirdAlg, randomNumberFirst, randomNumberSecond)
+    timesThirdAlg.append(timeThird)
+
+sortedData = sorted(zip(randomNumbers, timesFirstAlg, timesSecondAlg, timesThirdAlg), key=lambda x: x[0])
+randomNumbers = [x[0] for x in sortedData]
+timesFirstAlg = [x[1] for x in sortedData]
+timesSecondAlg = [x[2] for x in sortedData]
+timesThirdAlg = [x[3] for x in sortedData]
+
+plt.figure(figsize=(12, 6))
+
+plt.plot(randomNumbers, timesFirstAlg, label="Первый алгоритм Евклида", marker="o")
+plt.plot(randomNumbers, timesSecondAlg, label="Второй алгоритм Евклида", marker="o")
+plt.plot(randomNumbers, timesThirdAlg, label="Третий алгоритм Евклида", marker="o")
+
+plt.xlabel("Случайные числа")
+plt.ylabel("Время выполнения (в секундах)")
+
+plt.title("Сравнение времени выполнения алгоритмов Евклида")
+plt.legend()
+plt.grid(True)
+
+plt.xscale("linear")
+plt.yscale("linear")
+
+plt.show()

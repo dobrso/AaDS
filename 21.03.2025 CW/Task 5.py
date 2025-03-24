@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from solutionUtils import measureTimeMeanTargetSumArg, generateSizes
+from solutionUtils import measureTimeMean, generateSizes
 
 """
 Нахождение двух чисел, сумма которых равна целевому значению
@@ -32,10 +32,10 @@ timesNaive = []
 for size in sizes:
     arr = list(np.random.randint(0, size, size))
 
-    timeSet = measureTimeMeanTargetSumArg(targetSumWithSet, arr, targetSum)
+    timeSet = measureTimeMean(targetSumWithSet, arr, targetSum)
     timesSet.append(timeSet)
 
-    timeNaive = measureTimeMeanTargetSumArg(targetSumWithoutSet, arr, targetSum)
+    timeNaive = measureTimeMean(targetSumWithoutSet, arr, targetSum)
     timesNaive.append(timeNaive)
 
 plt.figure(figsize=(12, 7))
