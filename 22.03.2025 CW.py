@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import random
-from solutionUtils import measureTimeMean, bubbleSort, primeDivisors
+from solutionUtils import measureTimeMean, primeDivisors
 
 """
 Запустить 100 раз и измерить среднее время работы алгоритма для разных чисел от 10 до 1_000_000.
@@ -59,14 +59,15 @@ def thirdAlg(a, b):
 
     return gcd
 
-funcRepeatTimes = 100
+repeatTimes = 100
+funcRepeatTimes = 1
 
 timesFirstAlg = []
 timesSecondAlg = []
 timesThirdAlg = []
 randomNumbers = []
 
-for i in range(funcRepeatTimes):
+for i in range(repeatTimes):
     randomNumberFirst = random.randint(10, 1_000_000)
     randomNumberSecond = random.randint(10, 1_000_000)
 

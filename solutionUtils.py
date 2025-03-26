@@ -1,12 +1,23 @@
 import time
 import numpy as np
 
+def measureTimeNanos(func, *args, repeatTimes=5):
+    times = []
+
+    for i in range(repeatTimes):
+        timeStart = time.perf_counter_ns()
+        func(*args)
+        timeEnd = time.perf_counter_ns()
+        times.append(timeEnd - timeStart)
+
+    return np.mean(times), np.min(times), np.max(times)
+
 def measureTime(func, *args, repeatTimes=5):
     times = []
 
     for i in range(repeatTimes):
         timeStart = time.time()
-        result = func(*args)
+        func(*args)
         timeEnd = time.time()
         times.append(timeEnd - timeStart)
 
