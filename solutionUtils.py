@@ -12,6 +12,17 @@ def measureTimeNanos(func, *args, repeatTimes=5):
 
     return np.mean(times), np.min(times), np.max(times)
 
+def measureTimeNanosMean(func, *args, repeatTimes=5):
+    times = []
+
+    for i in range(repeatTimes):
+        timeStart = time.perf_counter_ns()
+        func(*args)
+        timeEnd = time.perf_counter_ns()
+        times.append(timeEnd - timeStart)
+
+    return np.mean(times)
+
 def measureTime(func, *args, repeatTimes=5):
     times = []
 

@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import random
-from solutionUtils import measureTimeMean, primeDivisors
+from solutionUtils import measureTimeNanosMean, primeDivisors
 
 """
 Запустить 100 раз и измерить среднее время работы алгоритма для разных чисел от 10 до 1_000_000.
@@ -73,13 +73,13 @@ for i in range(repeatTimes):
 
     randomNumbers.append(randomNumberFirst)
 
-    timeFirst = measureTimeMean(firstAlg, randomNumberFirst, randomNumberSecond)
+    timeFirst = measureTimeNanosMean(firstAlg, randomNumberFirst, randomNumberSecond)
     timesFirstAlg.append(timeFirst)
 
-    timeSecond = measureTimeMean(secondAlg, randomNumberFirst, randomNumberSecond)
+    timeSecond = measureTimeNanosMean(secondAlg, randomNumberFirst, randomNumberSecond)
     timesSecondAlg.append(timeSecond)
 
-    timeThird = measureTimeMean(thirdAlg, randomNumberFirst, randomNumberSecond)
+    timeThird = measureTimeNanosMean(thirdAlg, randomNumberFirst, randomNumberSecond)
     timesThirdAlg.append(timeThird)
 
 sortedData = sorted(zip(randomNumbers, timesFirstAlg, timesSecondAlg, timesThirdAlg), key=lambda x: x[0])
@@ -95,7 +95,7 @@ plt.plot(randomNumbers, timesSecondAlg, label="Второй алгоритм Е�
 plt.plot(randomNumbers, timesThirdAlg, label="Третий алгоритм Евклида", marker="o")
 
 plt.xlabel("Случайные числа")
-plt.ylabel("Время выполнения (в секундах)")
+plt.ylabel("Время выполнения (в наносекундах)")
 
 plt.title("Сравнение времени выполнения алгоритмов Евклида")
 plt.legend()
