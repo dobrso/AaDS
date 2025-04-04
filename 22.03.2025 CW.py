@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import random
-from solutionUtils import measureTimeNanosMean, primeDivisors
+from solutionUtils import measureTimeNanosMean, primeDivisors, generateSizes
 
 """
 Запустить 100 раз и измерить среднее время работы алгоритма для разных чисел от 10 до 1_000_000.
@@ -59,19 +59,14 @@ def thirdAlg(a, b):
 
     return gcd
 
-repeatTimes = 100
-funcRepeatTimes = 1
-
 timesFirstAlg = []
 timesSecondAlg = []
 timesThirdAlg = []
-randomNumbers = []
+sizes = generateSizes(10, 7)
 
-for i in range(repeatTimes):
-    randomNumberFirst = random.randint(10, 1_000_000)
-    randomNumberSecond = random.randint(10, 1_000_000)
-
-    randomNumbers.append(randomNumberFirst)
+for size in sizes:
+    randomNumberFirst = random.randint(size, size * 10)
+    randomNumberSecond = random.randint(size, size * 10)
 
     timeFirst = measureTimeNanosMean(firstAlg, randomNumberFirst, randomNumberSecond)
     timesFirstAlg.append(timeFirst)
@@ -82,17 +77,11 @@ for i in range(repeatTimes):
     timeThird = measureTimeNanosMean(thirdAlg, randomNumberFirst, randomNumberSecond)
     timesThirdAlg.append(timeThird)
 
-sortedData = sorted(zip(randomNumbers, timesFirstAlg, timesSecondAlg, timesThirdAlg), key=lambda x: x[0])
-randomNumbers = [x[0] for x in sortedData]
-timesFirstAlg = [x[1] for x in sortedData]
-timesSecondAlg = [x[2] for x in sortedData]
-timesThirdAlg = [x[3] for x in sortedData]
-
 plt.figure(figsize=(12, 6))
 
-plt.plot(randomNumbers, timesFirstAlg, label="Первый алгоритм Евклида", marker="o")
-plt.plot(randomNumbers, timesSecondAlg, label="Второй алгоритм Евклида", marker="o")
-plt.plot(randomNumbers, timesThirdAlg, label="Третий алгоритм Евклида", marker="o")
+plt.plot(sizes, timesFirstAlg, label="Первый алгоритм Евклида", marker="o")
+plt.plot(sizes, timesSecondAlg, label="Второй алгоритм Евклида", marker="o")
+plt.plot(sizes, timesThirdAlg, label="Третий алгоритм Евклида", marker="o")
 
 plt.xlabel("Случайные числа")
 plt.ylabel("Время выполнения (в наносекундах)")
@@ -101,7 +90,7 @@ plt.title("Сравнение времени выполнения алгорит
 plt.legend()
 plt.grid(True)
 
-plt.xscale("linear")
-plt.yscale("linear")
+plt.xscale("log")
+plt.yscale("log")
 
 plt.show()
