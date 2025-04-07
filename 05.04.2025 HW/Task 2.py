@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import random
 import solutionUtils
 
 def grayCode(n: int) -> list:
