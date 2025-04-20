@@ -3,7 +3,8 @@ import random
 import matplotlib.pyplot as plt
 
 def removeDuplicates(lst: list) -> list:
-    return list(set(lst))
+    uniqueList = list(set(lst))
+    return uniqueList
 
 times = []
 sizes = solutionUtils.generateSizes(10, 7)

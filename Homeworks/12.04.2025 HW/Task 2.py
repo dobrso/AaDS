@@ -10,7 +10,8 @@ def isCorrectSequence(bracketSequence: str) -> bool:
             else:
                 stack.pop()
 
-    return True if not(stack) else False
+    result = True if not(stack) else False
+    return result
 
 testSequences = ["()", "(())()", "()()", "((()))", ")(", "())(()", "(", "))))", "((())"]
 
