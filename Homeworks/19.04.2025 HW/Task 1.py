@@ -1,27 +1,29 @@
-import networkx as nx
-import matplotlib.pyplot as plt
+def dfs(graph: dict, start: str) -> list:
+    visited = set()
+    stack = [start]
+    traversalOrder = []
 
-def DFS(graph: nx.Graph, start: str) -> list:
-    return list(nx.dfs_edges(graph, source=start))
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            traversalOrder.append(vertex)
 
-G = nx.Graph()
+            for neighbor in reversed(graph.get(vertex, [])):
+                if neighbor not in visited:
+                    stack.append(neighbor)
 
-edges = [("A", "B"), ("A", "C"),
-         ("B", "D"),
-         ("C", "E"), ("C", "F"),
-         ("D", "G"), ("D", "H"),
-         ("E", "I"), ("E", "J"),
-         ("F", "K"), ("F", "L")]
-G.add_edges_from(edges)
+    return traversalOrder
 
-# plt.figure(figsize=(6, 4))
-# nx.draw(G, with_labels=True, node_color='lightblue', edge_color='gray', node_size=1000, font_size=14)
-# plt.title("Неориентированный граф")
-# plt.show()
+G = {
+    "A": ["B", "C"],
+    "B": ["A", "D"],
+    "C": ["A", "E", "F"],
+    "D": ["B", "G", "H"],
+    "E": ["C", "I", "J"],
+    "F": ["C", "K", "L"]
+}
 
 startNode = "A"
-dfsEdges = DFS(G, startNode)
-dfsNodes = [startNode] + [v for u, v in dfsEdges]
 
-print(dfsEdges)
-print(dfsNodes)
+print(dfs(G, startNode))

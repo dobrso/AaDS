@@ -1,30 +1,38 @@
-import networkx as nx
-import matplotlib.pyplot as plt
+from collections import deque
 
-def BFS(graph: nx.Graph, start: str) -> list:
-    return list(nx.bfs_edges(graph, source=start))
+def bfs(graph: dict, start: str) -> list:
+    visited = set()
+    queue = deque([start])
+    traversalOrder = []
 
-G = nx.Graph()
+    visited.add(start)
 
-edges = [("A", "B"), ("A", "C"),
-         ("B", "E"), ("B", "G"),
-         ("C", "E"),
-         ("D", "F"), ("D", "G"),
-         ("E", "F"), ("E", "G"), ("E", "H"),
-         ("G", "I"), ("G", "J"), ("G", "H"),
-         ("H", "J"), ("H", "K"),
-         ("I", "L"),
-         ("J", "L")]
-G.add_edges_from(edges)
+    while queue:
+        vertex = queue.popleft()
+        traversalOrder.append(vertex)
 
-# plt.figure(figsize=(6, 4))
-# nx.draw(G, with_labels=True, node_color='lightblue', edge_color='gray', node_size=1000, font_size=14)
-# plt.title("Неориентированный граф")
-# plt.show()
+        for neighbor in graph.get(vertex, []):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    return traversalOrder
+
+G = {
+    "A": ["B", "C"],
+    "B": ["A", "D", "E"],
+    "C": ["A", "E"],
+    "D": ["B", "F", "G"],
+    "E": ["B", "C", "F", "G", "H"],
+    "F": ["D", "E"],
+    "G": ["D", "E", "H", "I", "J"],
+    "H": ["E", "G", "J", "K"],
+    "I": ["G", "J", "L"],
+    "J": ["G", "H", "I", "L"],
+    "K": ["H"],
+    "L": ["I", "J"]
+}
 
 startNode = "A"
-bfsEdges = BFS(G, startNode)
-bfsNodes = [startNode] + [v for u, v in bfsEdges]
 
-print(bfsEdges)
-print(bfsNodes)
+print(bfs(G, startNode))
