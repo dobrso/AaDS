@@ -1,3 +1,6 @@
+from typing import Union
+
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -12,8 +15,8 @@ def printList(head: Node) -> None:
     print("None")
 
 
-def reverseList(head: Node) -> Node:
-    if head == None or head.next == None:
+def reverseList(head: Node) -> Union[Node, None]:
+    if head is None or head.next is None:
         return head
     newHead = reverseList(head.next)
     head.next.next = head
