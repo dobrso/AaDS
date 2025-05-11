@@ -16,20 +16,14 @@ def dfs(graph: dict, start: str) -> list:
     return traversalOrder
 
 G = {
-    "A": ["B", "C"],
-    "B": ["A", "D"],
-    "C": ["A", "E", "F"],
-    "D": ["B", "G", "H"],
-    "E": ["C", "I", "J"],
-    "F": ["C", "K", "L"],
-    "G": ["D"],
-    "H": ["D"],
-    "I": ["E"],
-    "J": ["E"],
-    "K": ["F"],
-    "L": ["F"]
+    "1": ["2", "3"],
+    "2": ["4", "5", "6", "7"],
+    "5": ["8", "9"],
+    "6": ["10"],
+    "8": ["11"],
+    "10": ["12", "13"]
 }
 
-startNode = "A"
+startNode = "1"
 
 print(dfs(G, startNode))
