@@ -1,7 +1,8 @@
 from math import sqrt
+from typing import List, Tuple
 
 
-def checkCircleIntersections(circles) -> bool:
+def checkCircleIntersections(circles: List[Tuple[float, float, float]]) -> bool:
     events = []
 
     for i, (xi, yi, ri) in enumerate(circles):
